@@ -1,0 +1,44 @@
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+:root {
+  --brown: #4b2e2b;
+  --light-yellow: #fff2b2;
+  --light-pink: #ffd6da;
+  --white: #ffffff;
+}
+
+body {
+  background-color: var(--light-yellow);
+  color: var(--brown);
+  font-family: "Poppins", sans-serif;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+}
+
+.playlist-font {
+  font-family: "Pacifico", cursive;
+  
+  font-style: normal;
+}
+
+.cart-link {
+  position: absolute;
+  width: 50px;
+
+  background-color: #ffffff;
+  top: 0;
+  right: 0;
+}
