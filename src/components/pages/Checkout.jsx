@@ -8,6 +8,7 @@ const Checkout = () => {
   const [deliveryTime, setDeliveryTime] = useState("");
   const [deliveryAddress, setDeliveryAddress] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const [userMobile, setUserMobile] = useState();
   const [upiRef, setUpiRef] = useState("");
 
   const total = cart.reduce(
@@ -26,6 +27,7 @@ const Checkout = () => {
       delivery_date: deliveryDate,
       delivery_time: deliveryTime,
       delivery_address: deliveryAddress,
+      mobile_num: userMobile,
       upi_ref: upiRef,
       total_price: `₹${total}`,
     };
@@ -48,13 +50,14 @@ const Checkout = () => {
             "N4uQw698B-6ac7_Wl"
           )
           .then(() => {
-            alert("Order placed! Confirmation sent to you and the bakery.");
+            alert("Order placed! Confirmation sent to Your Email.");
             clearCart();
             setUserEmail("");
             setUpiRef("");
             setDeliveryDate("");
             setDeliveryTime("");
             setDeliveryAddress("");
+            setUserMobile();
           })
           .catch((err) => {
             console.error("Owner email failed:", err);
@@ -121,6 +124,17 @@ const Checkout = () => {
               required
             />
           </div>
+          <div className="mb-3">
+            <label className="form-label fw-bold">Mobile Number</label>
+            <input
+              type="number"
+              className="form-control"
+              placeholder="Enter your Mobile"
+              value={userMobile}
+              onChange={(e) => setUserMobile(e.target.value)}
+              required
+            />
+          </div>
 
           <h5 className="mt-4">Scan to Pay</h5>
           <img
@@ -151,7 +165,7 @@ const Checkout = () => {
             className="btn btn-success mt-3"
             onClick={handleCheckout}
             disabled={
-              !userEmail || !upiRef || !deliveryDate || !deliveryTime || !deliveryAddress
+              !userEmail || !upiRef || !deliveryDate || !deliveryTime || !deliveryAddress || !userMobile
             }
           >
             I Have Paid – Place Order

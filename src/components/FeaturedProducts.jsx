@@ -17,74 +17,74 @@ import rasberryCheesecake from "../images/rasberryCheesecake.JPG";
 
 const products = [
   {
-    name: "24 Ferrero Loaded Cake",
+    name: "Cup Cake Set",
     price: "₹899",
     stock: 10,
     image:cakeset
   },
   {
-    name: "Belgian Chocolate Rosette Cake",
+    name: "Mixfruit Cake",
     price: "₹749",
     stock: 10,
     image:MixFruit
   },
   {
-    name: "Berry Chantilly Cake",
+    name: "Dry Fruit Cake",
     price: "₹799",
     stock: 10,
     image:dryfruit
   },
   {
-    name: "12 Ferrero Loaded Cake",
+    name: "BlueBerry Cheese Cake",
     price: "₹399",
     stock: 15,
     image:blueberrycheesecake
   },
   {
-    name: "Chantilly Cake",
-    price: "₹299",
+    name: "Nutella Cheese Cake",
+    price: "699",
     stock: 10,
     image:nutellacheesecake,
   },
   {
-    name: "Chantilly Cake",
-    price: "₹299",
+    name: "Biscoff Cheese Cake",
+    price: "799",
     stock: 10,
     image:biscoffchessecake,
   },
   {
-    name: "Chantilly Cake",
-    price: "₹299",
+    name: "Ferraro Cup Cake",
+    price: "899",
     stock: 10,
     image:ferrerocupcake,
   },
   {
-    name: "Chantilly Cake",
+    name: "Choclate Cup Cake",
     price: "₹299",
     stock: 10,
     image:choclatecupcake,
   },
   {
-    name: "Chantilly Cake",
+    name: "Nutella Cup Cake",
     price: "₹299",
     stock: 10,
     image:nutellacupcake,
   },
   {
-    name: "Chantilly Cake",
-    price: "₹299",
+    name: "Choclate Box 10",
+    price: "₹999",
     stock: 10,
     image:choclateBox10,
   },
   {
-    name: "ras Cake",
-    price: "₹299",
+    name: "Rasberry Cheese Cake",
+    price: "₹599",
     stock: 10,
     image:rasberryCheesecake
   },
   {
-    name: "Chantilly Cake",
-    price: "₹299",
+    name: "Tiramisu",
+    price: "₹499",
     stock: 10,
     image:tiramisu,
   },
@@ -110,7 +110,7 @@ const FeaturedProducts = () => {
               <div className="card h-100 shadow-sm" style={{ color: "brown" }}>
                 <img
                   src={product.image}
-                  // style={{height:"60%"}}
+                  // style={{height:"80%"}}
                   className="card-img-top"
                   alt={product.name}
                 />
