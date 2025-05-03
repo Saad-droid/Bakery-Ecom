@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import emailjs from "@emailjs/browser";
 import { useCart } from "../../context/CartContext";
+import QRImage from '../../images/Qr.jpeg'
 
 const Checkout = () => {
   const { cart, clearCart } = useCart();
@@ -138,7 +139,7 @@ const Checkout = () => {
 
           <h5 className="mt-4">Scan to Pay</h5>
           <img
-            src="https://pngimg.com/d/qr_code_PNG14.png"
+            src={QRImage}
             alt="UPI QR Code"
             width="200"
             className="d-block mb-3"
