@@ -14,13 +14,15 @@ const AboutUs = () => {
         <div className="col-md-6">
           <h2>About Us</h2>
           <p>
-            At this bakery, we believe baking is both an art and a passion.
-            Based in delhi, we craft 100% eggless, homemade cakes, loaded with
-            premium ingredients and made with love.
+          The name Morsel’s Bay reflects both the small, delightful nature of baked goods ("morsels") and the calm,
+           comforting feeling of a coastal bay—a nod to warmth, nostalgia, and home.Morsel’s Bay began with
+            a simple love for baking and the joy of sharing homemade treats with family and friends.
+             What started as weekend baking experiments quickly grew into frequent requests for cakesicles , 
+             cupcakes and brownies for sweetooth.
           </p>
           <p>
-            Our founder started this to bring joy through rich flavors and
-            aesthetics—from Ferrero-loaded cakes to Belgian chocolate rosettes.
+          Recipes were refined, packaging tested, and a few signature items like 
+          cakesicles,cupcakes and slab cakes became instant favorites.
           </p>
         </div>
       </div>
