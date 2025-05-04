@@ -17,74 +17,74 @@ import rasberryCheesecake from "../images/rasberryCheesecake.JPG";
 
 const products = [
   {
-    name: "Cup Cake Set",
-    price: "₹899",
-    stock: 10,
+    name: "5 Cupcake bouqet",
+    price: "₹650",
+    stock: 16,
     image:cakeset
   },
   {
-    name: "Mixfruit Cake",
-    price: "₹749",
-    stock: 10,
+    name: "Mixfruit Cake Tub",
+    price: "₹250",
+    stock: 9,
     image:MixFruit
   },
   {
-    name: "Dry Fruit Cake",
-    price: "₹799",
+    name: "Half Kg Dry Fruit Cake",
+    price: "₹500",
     stock: 10,
     image:dryfruit
   },
   {
-    name: "BlueBerry Cheese Cake",
-    price: "₹399",
+    name: "Mini BlueBerry Cheesecake",
+    price: "₹189",
     stock: 15,
     image:blueberrycheesecake
   },
   {
-    name: "Nutella Cheese Cake",
-    price: "699",
-    stock: 10,
+    name: "Mini Nutella Cheesecake",
+    price: "₹189",
+    stock: 12,
     image:nutellacheesecake,
   },
   {
-    name: "Biscoff Cheese Cake",
-    price: "799",
+    name: "Mini Biscoff Cheesecake",
+    price: "₹189",
     stock: 10,
     image:biscoffchessecake,
   },
   {
-    name: "Ferraro Cup Cake",
-    price: "899",
-    stock: 10,
+    name: "6 Ferraro Cup Cakes",
+    price: "₹900",
+    stock: 17,
     image:ferrerocupcake,
   },
   {
-    name: "Choclate Cup Cake",
-    price: "₹299",
-    stock: 10,
+    name: "6 Classic Choclate Cup Cakes",
+    price: "₹500",
+    stock: 15,
     image:choclatecupcake,
   },
   {
-    name: "Nutella Cup Cake",
-    price: "₹299",
-    stock: 10,
+    name: "6 Nutella Cup Cakes",
+    price: "₹600",
+    stock: 20,
     image:nutellacupcake,
   },
   {
-    name: "Choclate Box 10",
-    price: "₹999",
+    name: "Choclate Box",
+    price: "₹450",
     stock: 10,
     image:choclateBox10,
   },
   {
-    name: "Rasberry Cheese Cake",
-    price: "₹599",
+    name: " Half Kg Rasberry Cheesecake",
+    price: "₹1600",
     stock: 10,
     image:rasberryCheesecake
   },
   {
-    name: "Tiramisu",
-    price: "₹499",
+    name: "200 gm Tiramisu",
+    price: "₹350",
     stock: 10,
     image:tiramisu,
   },
@@ -145,7 +145,7 @@ const FeaturedProducts = () => {
                       Add to cart
                     </button>
                   )}
-                  <div>only {product.stock} left</div>
+                  <div>only {product.stock} left!!</div>
                 </div>
               </div>
             </div>
