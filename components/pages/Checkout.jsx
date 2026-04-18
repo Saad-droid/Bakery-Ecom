@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import emailjs from "@emailjs/browser";
 import { useCart } from "../../context/CartContext";
-import QRImage from '../../images/Qr.jpeg'
+// QR image uses public path
+const QRImage = '/images/Qr.jpeg'
 
 const Checkout = () => {
   const { cart, clearCart } = useCart();
@@ -70,6 +71,48 @@ const Checkout = () => {
         alert("Failed to place order. Try again.");
       });
   };
+
+  const loadScript = (src) =>
+    new Promise((resolve) => {
+      const script = document.createElement('script')
+      script.src = src
+      script.onload = () => resolve(true)
+      script.onerror = () => resolve(false)
+      document.body.appendChild(script)
+    })
+
+  const handleRazorpayCheckout = async () => {
+    if (cart.length === 0) return alert('Cart is empty')
+    const res = await fetch('/api/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cart, userEmail, userMobile }),
+    })
+    const data = await res.json()
+    if (!data || !data.orderId) return alert('Payment initialization failed')
+
+    const ok = await loadScript('https://checkout.razorpay.com/v1/checkout.js')
+    if (!ok) return alert('Failed to load Razorpay SDK')
+
+    const options = {
+      key: data.key,
+      amount: data.amount,
+      currency: data.currency,
+      name: 'Bakery',
+      description: 'Order Payment',
+      order_id: data.orderId,
+      handler: function (response) {
+        // payment successful - response contains razorpay_payment_id, razorpay_order_id, razorpay_signature
+        alert('Payment successful. Payment id: ' + response.razorpay_payment_id)
+        // redirect to confirmation page or show success
+        window.location.href = `/checkout?session_id=${response.razorpay_payment_id}`
+      },
+      prefill: { email: userEmail, contact: userMobile },
+    }
+
+    const rzp = new window.Razorpay(options)
+    rzp.open()
+  }
 
   return (
     <div className="container py-5">
@@ -161,16 +204,21 @@ const Checkout = () => {
           </div>
 
           <h5 className="mt-4">Total: ₹{total}</h5>
+          <div className="d-flex gap-2">
+            <button
+              className="btn btn-success mt-3"
+              onClick={handleCheckout}
+              disabled={
+                !userEmail || !upiRef || !deliveryDate || !deliveryTime || !deliveryAddress || !userMobile
+              }
+            >
+              I Have Paid – Place Order
+            </button>
 
-          <button
-            className="btn btn-success mt-3"
-            onClick={handleCheckout}
-            disabled={
-              !userEmail || !upiRef || !deliveryDate || !deliveryTime || !deliveryAddress || !userMobile
-            }
-          >
-            I Have Paid – Place Order
-          </button>
+            <button className="btn btn-primary mt-3" onClick={handleRazorpayCheckout}>
+              Pay With Card (Razorpay)
+            </button>
+          </div>
         </>
       )}
     </div>

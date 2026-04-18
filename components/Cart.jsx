@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
+import { useRouter } from "next/router";
 import { useCart } from "../context/CartContext";
 
 const Cart = () => {
   const { cart, increment, decrement, removeFromCart } = useCart();
   const [deliveryDate, setDeliveryDate] = useState("");
-  const navigate = useNavigate();
+  const router = useRouter();
   const total = cart.reduce(
     (sum, item) => sum + item.quantity * parseInt(item.price.slice(1)),
     0
@@ -55,7 +55,7 @@ const Cart = () => {
                 </strong>
                 <button
                   className="btn btn-sm btn-danger ms-3"
-                  onClick={() => removeFromCart(item.name)}
+                  onClick={() => removeFromCart(item.id)}
                 >
                   Remove
                 </button>
@@ -68,7 +68,7 @@ const Cart = () => {
 
             <button
               className="btn btn-success mt-3"
-              onClick={() => navigate("/checkout")}
+              onClick={() => router.push("/checkout")}
             >
               Proceed to Checkout
             </button>

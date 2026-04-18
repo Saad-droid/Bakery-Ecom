@@ -1,0 +1,47 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Buttons */
+.prevBtn,
+.nextBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+
+  width: 40px;
+  height: 40px;
+
+  cursor: pointer;
+  font-size: 22px;
+}
+
+/* Position */
+.prevBtn {
+  left: -50px;
+}
+
+.nextBtn {
+  right: -50px;
+}
+
+/* Hover */
+.prevBtn:hover,
+.nextBtn:hover {
+  background: #f5f5f5;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .prevBtn,
+  .nextBtn {
+    display: none;
+  }
+}

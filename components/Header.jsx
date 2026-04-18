@@ -1,9 +1,8 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import logo from "../images/logo.png";
+import Link from "next/link";
 import { useCart } from "../context/CartContext";
 import { Navbar, Nav, Container } from "react-bootstrap";
-import { Link } from "react-scroll"; // Optional for smooth scrolling
+import { Link as ScrollLink } from "react-scroll"; // Optional for smooth scrolling
 import { FaShoppingCart } from "react-icons/fa"; // Cart icon
 
 const Header = () => {
@@ -20,19 +19,15 @@ const Header = () => {
     >
       <Container>
         {/* Logo & Brand */}
-        <NavLink className="nav-link d-flex align-items-center" to="/">
-          <img src={logo} alt="Morsel's Bay" height="40" />
+        <Link href="/" className="nav-link d-flex align-items-center">
+          <img src="/images/logo.png" alt="Morsel's Bay" height="40" />
           <span className="playlist-font ms-2" style={{ color: "brown" }}>
             Morsel's bay
           </span>
-        </NavLink>
+        </Link>
 
         {/* 🛒 Cart - Visible on mobile */}
-        <NavLink
-          className="nav-link d-lg-none ms-auto position-relative"
-          to="/cart"
-          style={{ color: "brown" }}
-        >
+        <Link href="/cart" className="nav-link d-lg-none ms-auto position-relative" style={{ color: "brown" }}>
           <FaShoppingCart size={20} />
           {cartCount > 0 && (
             <span
@@ -42,31 +37,27 @@ const Header = () => {
               {cartCount}
             </span>
           )}
-        </NavLink>
+        </Link>
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto align-items-center">
-            <Link
+            <ScrollLink
               to="shop"
               smooth={true}
               className="nav-link"
               style={{ color: "brown", cursor: "pointer" }}
             >
               Shop
+            </ScrollLink>
+
+            <Link href="/about" className="nav-link" style={{ color: "brown" }}>
+              About us
             </Link>
 
-            <NavLink className="nav-link" to="/aboutUs" style={{ color: "brown" }}>
-              About us
-            </NavLink>
-
             {/* 🛒 Cart - Visible on desktop */}
-            <NavLink
-              className="nav-link d-none d-lg-block position-relative"
-              to="/cart"
-              style={{ color: "brown" }}
-            >
+            <Link href="/cart" className="nav-link d-none d-lg-block position-relative" style={{ color: "brown" }}>
               <FaShoppingCart size={20} />
               {cartCount > 0 && (
                 <span
@@ -76,7 +67,7 @@ const Header = () => {
                   {cartCount}
                 </span>
               )}
-            </NavLink>
+            </Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
