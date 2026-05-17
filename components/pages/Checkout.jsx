@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useRouter } from 'next/router'
 import emailjs from "@emailjs/browser";
 import { useCart } from "../../context/CartContext";
 // QR image uses public path
 const QRImage = '/images/Qr.jpeg'
 
 const Checkout = () => {
+  const router = useRouter()
   const { cart, clearCart } = useCart();
   const [deliveryDate, setDeliveryDate] = useState("");
   const [deliveryTime, setDeliveryTime] = useState("");
@@ -52,7 +54,6 @@ const Checkout = () => {
             "N4uQw698B-6ac7_Wl"
           )
           .then(() => {
-            alert("Order placed! Confirmation sent to Your Email.");
             clearCart();
             setUserEmail("");
             setUpiRef("");
@@ -60,15 +61,16 @@ const Checkout = () => {
             setDeliveryTime("");
             setDeliveryAddress("");
             setUserMobile();
+            router.push('/payment-result?status=success&method=upi')
           })
           .catch((err) => {
             console.error("Owner email failed:", err);
-            alert("Order sent to you, but failed to notify bakery.");
+            router.push('/payment-result?status=failure&method=upi&error=notification_failed')
           });
       })
       .catch((err) => {
         console.error("User email failed:", err);
-        alert("Failed to place order. Try again.");
+        router.push('/payment-result?status=failure&method=upi&error=order_failed')
       });
   };
 
@@ -89,10 +91,16 @@ const Checkout = () => {
       body: JSON.stringify({ cart, userEmail, userMobile }),
     })
     const data = await res.json()
-    if (!data || !data.orderId) return alert('Payment initialization failed')
+    if (!data || !data.orderId) {
+      router.push('/payment-result?status=failure&method=razorpay&error=init_failed')
+      return
+    }
 
     const ok = await loadScript('https://checkout.razorpay.com/v1/checkout.js')
-    if (!ok) return alert('Failed to load Razorpay SDK')
+    if (!ok) {
+      router.push('/payment-result?status=failure&method=razorpay&error=sdk_load_failed')
+      return
+    }
 
     const options = {
       key: data.key,
@@ -102,15 +110,26 @@ const Checkout = () => {
       description: 'Order Payment',
       order_id: data.orderId,
       handler: function (response) {
-        // payment successful - response contains razorpay_payment_id, razorpay_order_id, razorpay_signature
-        alert('Payment successful. Payment id: ' + response.razorpay_payment_id)
-        // redirect to confirmation page or show success
-        window.location.href = `/checkout?session_id=${response.razorpay_payment_id}`
+        clearCart()
+        router.push(
+          `/payment-result?status=success&method=razorpay&payment_id=${response.razorpay_payment_id}&order_id=${response.razorpay_order_id}`
+        )
+      },
+      modal: {
+        ondismiss: function () {
+          router.push('/payment-result?status=failure&method=razorpay&error=user_cancelled')
+        },
       },
       prefill: { email: userEmail, contact: userMobile },
     }
 
     const rzp = new window.Razorpay(options)
+    rzp.on('payment.failed', function (response) {
+      const message = response.error?.description || 'Payment failed. Please try again.'
+      router.push(
+        `/payment-result?status=failure&method=razorpay&error=${encodeURIComponent(message)}`
+      )
+    })
     rzp.open()
   }
 
